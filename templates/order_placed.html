@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placed Successfully</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #c1a38e;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .message {
+            color: #d9d9d9;
+            font-weight: bold;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .logo {
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+        .redirect {
+            font-size: 14px;
+            color: #568380;
+            text-decoration: none;
+        }
+        .redirect:hover {
+            text-decoration: underline;
+        }
+        
+    </style>
+    <script>
+        setTimeout(function() {
+            window.location.href = "customer/dashboard";
+        }, 5000);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="message"> <h1> Thank You for Your Order! </h1> </div>
+        <img src="static/logo1.png" alt="Website Logo" class="logo">
+        <p>Your order has been successfully placed.</p>
+        <p>You will be redirected to the dashboard in 5 seconds.</p>
+        <a href="customer/dashboard" class="redirect">Click here if redirection doesn't work</a>
+    </div>
+</body>
+</html>

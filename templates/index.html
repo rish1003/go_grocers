@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            background-color: #D9D9D9;
+        }
+        .center-box {
+            background-color: #7BBCB4;
+            width: 659px;
+            height: 459px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .header-box {
+            background-color: #C1A38E;
+            height: 150;
+            text-align: center;
+            padding: 0px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .login-button {
+            margin: 0 auto;
+            display: block;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-box">
+        <div class="header-box">
+            <img src="{{ url_for('static', filename='logo1.png') }}" class="img-fluid" alt="Image" style="max-width: 100%; height: auto;" align="center">
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <form action="/" method="post">
+                    <input type="submit" class="btn btn-info btn-block btn-outline-light login-button" name="user" value="Login as User">
+                </form>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6 offset-md-3">
+                <form action="/" method="post">
+                    <input type="submit" class="btn btn-info btn-block btn-outline-light login-button" name="store_manager" value="Login as Store Manager">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

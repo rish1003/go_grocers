@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Store Manager Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #D9D9D9;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .card-header {
+            background-color: #C1A38E;
+            color: #fff;
+            font-weight: bold;
+        
+        }
+        .card-footer {
+            color: #C1A38E;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h4>Store Manager Login</h4>
+                    </div>
+                    <div class="card-body">
+                        {% with messages = get_flashed_messages(category_filter='regis') %}
+                            {% if messages %}
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        {% for message in messages %}
+                                            <li>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% if 'Store manager already exists.' in messages %}
+                                        <a href="{{ url_for('login') }}" class="btn btn-info btn-block mt-3">Back to Login</a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {% set messages = [] %}
+                        {% endwith %}
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="text-center">
+                                <input type="submit" class="btn btn-info btn-block" value="Login">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a><br/>
+                            Customer? <a href="{{ url_for('customer_login') }}">Go to Customer Login</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

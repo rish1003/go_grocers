@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+          background-color: #d9d9d9;
+        }
+        .container {
+          margin-top: 50px;
+        }
+        .card-header {
+          background-color: #c1a38e;
+          color: #fff;
+          font-weight: bold;
+        }
+        .card-footer {
+          background-color: #c1a38e;
+          color: #fff;
+          font-weight: bold;
+        }
+            .card-deck {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+    
+            .card {
+                width: calc(33.33% - 20px);
+                margin-bottom: 20px;
+                padding: 10px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            }
+    
+            .card-body {
+                padding: 20px;
+            }
+    
+            .form-check-input {
+                margin-right: 10px;
+            }
+    
+            .btn-primary {
+                margin-top: 20px;
+            }
+
+      </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Total: {{ amount }}</h1>
+        <form action="{{ url_for('order_placed') }}" method="POST">
+            <div class="form-group">
+                <h3>Select Payment Method:</h3>
+                <div class="card-deck">
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="radio" class="form-check-input" name="payment_method" value="credit_card">
+                            <h5 class="card-title">Credit Card</h5>
+                            <p class="card-text">Enter your credit card details:</p>
+                            <input type="text" class="form-control" name="credit_card_number" placeholder="Credit Card Number">
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="radio" class="form-check-input" name="payment_method" value="debit_card">
+                            <h5 class="card-title">Debit Card</h5>
+                            <p class="card-text">Enter your debit card details:</p>
+                            <input type="text" class="form-control" name="debit_card_number" placeholder="Debit Card Number">
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <input type="radio" class="form-check-input" name="payment_method" value="upi">
+                            <h5 class="card-title">UPI</h5>
+                            <p class="card-text">Enter your UPI ID:</p>
+                            <input type="email" class="form-control" name="upi" placeholder="UPI ID">
+                        </div>
+                    </div>
+                </div>
+                </br><h3 align="center"> OR </h3> </br>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <div class="card" style="height:150px; width: calc(33.33% - 20px); box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);">
+                        <div class="card-body">
+                            <input type="radio" class="form-check-input" name="payment_method" value="cod">
+                            <h5 class="card-title">Cash On Delivery</h5>
+                            <p class="card-text">Pay with Cash or UPI on delivery</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-info">Place Order</button>
+            </div>
+        </form>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Categories - Store Manager Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    
+    <style>
+        body {
+            background-color: #D9D9D9;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .card-header {
+            background-color: #C1A38E;
+            color: #fff;
+            font-weight: bold;
+        }
+        .card-footer {
+            color: #C1A38E;
+            font-weight: bold;
+        }
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="row mt-4">
+    
+    <div class="col-md-8">
+        <div class="text-center">
+            <h1> Products </h1>
+        </div>
+        <div class="row">
+            {% for category in categories %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        {{ category.name }}
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            {% for product in category.products %}
+                            <li>
+                                {{ product.name }}
+                
+                                <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                </form>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a href="{{ url_for('login') }}" class="btn btn-warning">Logout</a>
+            <a href="{{ url_for('store_manager_dashboard') }}" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+            <h1>Add New Product</h1>
+            <form method="post" action="{{ url_for('add_product') }}" class="mb-4" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" id="description" name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock:</label>
+                    <input type="number" class="form-control" id="stock" name="stock" required>
+                </div>
+                <div class="form-group">
+                    <label for="unit">Unit:</label>
+                    <input type="text" class="form-control" id="unit" name="unit" required>
+                </div>
+                <div class="form-group">
+                    <label for="manufacturing_date">Manufacturing Date:</label>
+                    <input type="date" class="form-control" id="manufacturing_date" name="manufacturing_date">
+                </div>
+                <div class="form-group">
+                    <label for="expiry_date">Expiry Date:</label>
+                    <input type="date" class="form-control" id="expiry_date" name="expiry_date">
+                </div>
+                <div class="form-group">
+                    <label for="category">Category:</label>
+                    <select class="form-control" id="category" name="category" label="Select Category" required>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="photo">Product Photo:</label>
+                    <input type="file" class="form-control-file" id="photo" name="photo">
+                </div>
+                <button type="submit" class="btn btn-success">Add Product</button>
+            </form>
+         
+    </div>
+</div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Store Manager Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #d9d9d9;
+      }
+      .container {
+        margin-top: 50px;
+      }
+      .card-header {
+        background-color: #c1a38e;
+        color: #fff;
+        font-weight: bold;
+      }
+      .card-footer {
+        background-color: #c1a38e;
+        color: #fff;
+        font-weight: bold;
+      }
+      .btn-primary {
+        background-color: #c1a38e;
+        border-color: #c1a38e;
+      }
+      .btn-primary:hover {
+        background-color: #a98b68;
+        border-color: #a98b68;
+      }
+      .table {
+        background-color: #fff;
+      }
+      .table th {
+        background-color: #c1a38e;
+        color: #fff;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="text-center">
+            <h1 class="mb-4">Welcome Store Manager</h1>
+        </div>
+    
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        Categories
+                    </div>
+                    <div class="card-body text-center">
+                        <p class="card-text">Manage categories of products.</p>
+                        <a href="{{ url_for('store_manager_categories') }}" class="btn btn-info">Go to Categories</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        Products
+                    </div>
+                    <div class="card-body text-center">
+                        <p class="card-text">Manage products available in the store.</p>
+                        <a href="{{ url_for('store_manager_products') }}" class="btn btn-info">Go to Products</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <a href="{{ url_for('login') }}" class="btn btn-danger">Logout</a>
+        </div>
+       
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

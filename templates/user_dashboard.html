@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard - Grocery Store</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #D9D9D9;
+            margin: 0px;
+        }
+        .header-box {
+            background-color: #C1A38E;
+            height: 150px;
+            width: 100%;
+            text-align: center;
+            padding-top: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 10px;
+        }
+        .image-panel {
+            
+            margin-top: 20px;
+        }
+        .image-panel img {
+            max-width: 100%;
+            max-height: 200px;
+        }
+        
+        .search-bar {
+            text-align: center;
+            padding: 20px 0;
+            
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 600px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            background-color: #7BBCB4;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-bar button:hover {
+            background-color: #5E9A8D;
+        }
+
+        .clear-search {
+            background-color: #7BBCB4;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .product-card {
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            width: calc(25% - 20px);
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+        .product-card img {
+            max-width: 100%;
+            max-height: 150px;
+        }
+        .product-card h3 {
+            margin: 10px 0;
+        }
+        .product-card p {
+            margin: 5px 0;
+        }
+        .product-card button {
+            background-color: #7BBCB4;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .product-card button:hover {
+            background-color: #5E9A8D;
+        }
+        .search-filters {
+            background-color: #F5F5F5;
+            padding: 20px;
+            border: 1px solid #DDD;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .filter-card{
+            display: block;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+            width: 50%;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .filter-group {
+            margin-bottom: 0px;
+        }
+        
+        .price-input {
+            width: 100px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .filter-label {
+            display: inline-block;
+            width: 300px; /* Adjust this width as needed */
+        }
+        
+        
+        .cart-button img {
+            width: 30px;
+            height: 30px;
+            margin-top: 2px;
+        }
+        
+        .cart-button:hover {
+            background-color: #5E9A8D;
+        }
+        .cart-button {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #7BBCB4;
+            position: absolute;
+            right: 8px;
+            top: 3px;
+        
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="header-box">
+        <div class="image-panel">
+            <img src="{{ url_for('static', filename='dash_logo.png') }}" alt="Grocery Store Image">
+            <button type="button" class="cart-button float-right" data-toggle="modal" data-target="#cartModalLong">
+                <img src="{{ url_for('static', filename='cart_icon.png') }}" alt="Cart" title="View Cart">
+            </button>
+        </div>
+    </div>
+        <div class="modal fade" id="cartModalLong" tabindex="-1" role="dialog" aria-labelledby="Cart" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="Cart">Your Cart</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                
+                    <div class="modal-body">
+                    <table class="table">
+                        <tr>
+                            <td>Item</td>
+                            <td>Rate</td>
+                            <td>Quantity</td>
+                            <td>Price</td>
+                        </tr>
+                        {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td> Rs. {{ item.price }}</td>
+                            <td>{{ item.stock }}</td>
+                            <td> Rs. {{ item.price * item.stock }} </td>
+                            <td> 
+                                <form action="{{ url_for('delete_item') }}" method="POST">
+                                    <input type="hidden" id="product_id" name="product_id" value={{ item.id }}>
+                                    <button type="submit" class="btn btn-primary">Remove</button>  
+                                </form>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="3"> Total Amount </td>
+                            <td> Rs. {{ total_amount }}</td>
+                        </tr>
+                    </table>
+                    
+                    </div>
+                    <div class="modal-footer">
+                        <div style="display:inline-flex;">
+                            <form action="{{ url_for('clear_cart') }}" method="POST">
+                                <button type="submit" class="btn btn-danger">Clear Clart</button>
+                            </form>
+                            &nbsp;&nbsp;&nbsp;
+                            <form action="{{ url_for('process_payment') }}" method="POST">
+                            <input type="hidden" name="total_amount" value="{{ total_amount }}">
+                            <button type="submit" class="btn btn-primary">Continue to Payment</button>  
+                            </form>
+                        </div>
+                    </div>
+              </div>
+            </div>
+          </div>
+        <div class="search-bar">
+            
+                <form action="{{ url_for('search_products') }}" method="GET">
+                    <input type="text" name="query" placeholder="Search for products..." value="{{ val }}">
+                    <button type="submit">Search</button>
+                    {% if search_results or min_price or max_price or min_date or max_date %}
+                    <button type="submit" formaction="{{ url_for('customer_dashboard') }}" class="clear-search">Clear Search</button>
+                    {% endif %}<br/>
+                
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseBox">
+                   Apply Filters
+                </button>
+            
+                <div class="collapse" id="collapseBox">
+                    <div class="filter-card">
+    
+                        <div class="card-body">
+                            <table class="table" >
+                                <tbody>
+                                    <tr align="left">
+                                        <td>
+                                            <label class="filter-label" for="Price Range">Price Range</label>
+                                        </td>
+                                        <td>:</td>
+                                        <td>
+                                            <input type="number" class="price-input" name="min_price" placeholder="Min Price" value="{{ min_price }}">
+                                        </td>
+                                        <td>to</td>
+                                        <td>
+                                            <input type="number" class="price-input" name="max_price" placeholder="Max Price" value="{{ max_price }}">
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                        <td align="left">
+                                            <label class="filter-label" for="Manufacturing">Manufacturing Date Limit</label>
+                                        </td>
+                                        <td>:</td>
+                                        <td colspan="3">
+                                            <input type="date" name="min_date" value="{{ min_date }}">
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                        <td align="left">
+                                            <label class="filter-label" for="Expiry">Expiry Date Limit</label>
+                                        </td>
+                                        <td>:</td>
+                                        <td colspan="3">
+                                            <input type="date" name="max_date" value="{{ max_date }}">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+                              
+                        
+        </div>
+        
+        <div class="container">
+            {% if search_results %}
+                    {% for product in search_results %}
+                    <div class="product-card">
+                        <img src="{{ url_for('static', filename='images/' + product.photo) }}" alt="{{ product.name }}">
+                        <h3>{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+                        <p>Rs. {{ product.price }} / {{ product.unit}}</p>
+                        <form action="{{ url_for('add_to_cart') }}" method="POST">
+                            <div class="quantity">
+                                <label> Quantity: </label>
+                                <input class="text-center" style="width: 100px; margin-left: 10px; margin-right: 10px;" type="number" name="quantity" value="1" min="1">
+                            </div>
+                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    
+                    </div>
+                    {% endfor %}
+              
+            {% else %}
+                {% if categories %}
+                    {% for category in categories %}
+                        <div class="product-card">
+                        
+                        <a href="{{ url_for('category_products', category_id=category.id) }}">
+                            <img src="{{ url_for('static', filename='images/' + category.cat_photo) }}" alt="{{ category.name }}">
+                        </a>
+                        <h3>{{ category.name }}</h3>
+                        </div>
+                    {% endfor %}    
+                {% else %}
+                    <label>No products found.</label>
+                {% endif %}    
+            {% endif %}
+
+
+        </div>
+    
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>
